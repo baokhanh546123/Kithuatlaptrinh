@@ -1,39 +1,37 @@
-class dem:
-    def __init__(self , size ):
-        self.a = []
-        self.size = size 
-        self.counts = {}
+class tang:
+    def __init__(self , n ):
+        self.array = []
+        self.size = n 
+
     def push(self,data):
-        if  len(self.a) >= self.size : 
+        if len(self.array) >= self.size :
+            print("FULL")
             quit()
         else:
-            self.a.append(data)
-
-    def count(self,i = 0 , dem = 0 , x = 0  ):
-        if (len(self.a) <= 1 or i >= len(self.a) - 1):
-            return dem 
-        if (self.a[i] == x ):
-            dem+=1
-        return self.count(i+1,dem,x)
-
-    def __str__(self) -> str:
-        return str(self.a)
+            self.array.append(data)
+        return self.array
+    
+    def check(self, i=0, dstn=0):
+        if len(self.array) <= 1 or i >= len(self.array) - 1:
+            return dstn
+        if self.array[i] < self.array[i + 1]:
+            dstn += 1
+        return self.check(i + 1, dstn)
+    def __str__(self):
+        return str(self.array)
     
 if __name__ == '__main__':
-    d = dem(10)
-    d.push(4)
-    d.push(5)
-    d.push(4)
-    d.push(4)
-    d.push(7)
-    d.push(6)
-    d.push(4)
-    d.push(5)
-    print(d)
-    result = d.count(x=4)  # Count occurrences of 4
-    print(f'Occurrences of 4: {result}')
-    result = d.count(x=5)  # Count occurrences of 4
-    print(f'Occurrences of 5: {result}')
+    T = tang(10)
+    T.push(0)
+    T.push(1)
+    T.push(2)
+    T.push(5)
+    T.push(4)
+    print(T)
+    print("Co" , T.check() ,"day so tang dan")
     
 
+    
+            
 
+            
