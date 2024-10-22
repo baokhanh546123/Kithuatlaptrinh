@@ -1,6 +1,6 @@
 package LinkedList;
 
-public class SinglyListLined {
+public class SinglyLinkedList {
     static class Node {
         int data;
         Node next;
