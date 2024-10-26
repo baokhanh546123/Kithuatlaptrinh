@@ -164,18 +164,22 @@ public class BinaryTree {
         inorderDFS(root1);
         System.out.println();
 
-        int val  = 25;
-        delete(root1, val);
-        System.out.println("Xoa phan tu trong cay nhi phan");
-        inorderDFS(root1);
-        System.out.println();
-
         int x = 6; 
         if (searchDFS(root1, x))
             System.out.println(x + " Ton trong cay nhi phan");
         else 
             System.out.println(x + " Khong ton tai trong cay nhi phan");
-        
-        
+
+        int val  = 6;
+        delete(root1, val);
+        System.out.println("Xoa phan tu trong cay nhi phan");
+        inorderDFS(root1);
+        System.out.println();
+
+        x = 6; 
+        if (searchDFS(root1, x))
+            System.out.println(x + " Ton trong cay nhi phan");
+        else 
+            System.out.println(x + " Khong ton tai trong cay nhi phan");
     }
 }
