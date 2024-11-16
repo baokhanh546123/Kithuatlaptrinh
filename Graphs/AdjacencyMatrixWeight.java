@@ -63,7 +63,7 @@ public class Graphs_Weight {
 	
     public int getMinDistance(int[] dist, boolean[] visited) {
         int min = Integer.MAX_VALUE;
-        int minIndex = -1;
+        int minIndex = 0;
         for (int i = 0; i < size; i++) {
             if (!visited[i] && dist[i] < min) {
                 min = dist[i];
@@ -91,7 +91,7 @@ public class Graphs_Weight {
         boolean[] visited = new boolean[size];
 
         //Duyet graphs
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             int u = getMinDistance(dist, visited); 
             visited[u] = true;
             for (int v = 0; v < size; v++) {
