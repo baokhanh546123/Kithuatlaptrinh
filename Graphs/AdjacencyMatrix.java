@@ -13,7 +13,7 @@ public class Graphs {
 		this.vertex_data = new String[size];
 	}
 
-	public void addEgde(int i, int j) {
+	public void addEdge(int i, int j) {
 		if ((i >= 0 && i < size) && (j >= 0 && j < size)) {
 			matrix[i][j] = 1;
 			matrix[j][i] = 1;
@@ -32,15 +32,6 @@ public class Graphs {
 		}
 	}
 
-	public void addEgdeWeight(int i, int j) {
-		if ((i >= 0 && i < size) && (j >= 0 && j < size)) {
-			matrix[i][j] = 1;
-		} else {
-			System.out.println("Loi");
-			System.exit(0);
-		}
-	}
-
 	public boolean isConnected(int i, int j) {
 		if (i < 0 || i >= size || j < 0 || j >= size) {
 			return false;
@@ -48,21 +39,21 @@ public class Graphs {
 		return matrix[i][j] == 1;
 	}
 
-	public void dfs(int v, boolean[] visited) {
+	public void dfs_util(int v, boolean[] visited) {
 		visited[v] = true;
 		System.out.print(vertex_data[v] + " ");
 		for (int i = 0; i < size; i++) {
 			if (matrix[v][i] == 1 && !visited[i])
-				dfs(i, visited);
+				dfs_util(i, visited);
 		}
 	}
 
-	public void start_dfs(int startVertex) {
+	public void dfs(int startVertex) {
 		boolean[] visited = new boolean[size];
-		dfs(startVertex, visited);
+		dfs_util(startVertex, visited);
 	}
 
-	public void start_bfs(int startVertex) {
+	public void bfs(int startVertex) {
 		boolean[] visited = new boolean[size];
 		Queue<Integer> queue = new LinkedList<>();
 		queue.add(startVertex);
@@ -78,7 +69,41 @@ public class Graphs {
 		}
 	}
 
+	public void dijkstra(int startVertex) {
+		int[] distance = new int[size];
+		boolean[] visited = new boolean[size];
+		Arrays.fill(distance, Integer.MAX_VALUE);
+		distance[startVertex] = 0;
+		for (int i = 0; i < size; i++) {
+			int u = -1;
+			for (int j = 0; j < size; j++) {
+				if (!visited[j] && (u == -1 || distance[j] < distance[i]))
+					u = j;
+			}
+			if (distance[u] == Integer.MAX_VALUE)
+				break;
+			visited[u] = true;
+			for (int v = 0; v < size; v++) {
+				if (matrix[u][v] != 0 && !visited[v]) {
+					int newDist = distance[u] + matrix[u][v];
+					if (newDist < distance[v])
+						distance[v] = newDist;
+				}
+			}
+		}
+		System.out.println("Khoảng cách từ đỉnh " + vertex_data[startVertex] + "đến các đỉnh khác ");
+		for (int i = 0; i < size; i++) {
+			System.out.println("Đỉnh " + vertex_data[i] + ": "
+					+ (distance[i] == Integer.MAX_VALUE ? "Không thể tiếp cận" : distance[i]));
+		}
+	}
+
 	public void display() {
+		System.out.println("Vertex Data :");
+		for (int vertex = 0; vertex < size; vertex++) {
+			System.out.printf("Vertex %d: %s%n", vertex, vertex_data[vertex]);
+		}
+
 		System.out.println("Adjacency Matrix :");
 		for (int[] row : matrix) {
 			for (int value : row) {
@@ -86,9 +111,6 @@ public class Graphs {
 			}
 			System.out.println();
 		}
-		System.out.println("Vertex Data :");
-		for (int vertex = 0; vertex < size; vertex++) {
-			System.out.printf("Vertex %d: %s%n", vertex, vertex_data[vertex]);
-		}
+
 	}
 }
