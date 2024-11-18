@@ -11,9 +11,29 @@ class Graph:
     def addVertex(self,vertex,data):
         if 0 <= vertex < self.size:
             self.vertex_data[vertex] = data
-    def addVertexWeight(self,vertex ,data):
-        if 0 <= vertex < self.size:
-            self.vertex_data[vertex] = data
+    def dfs_util(self,v , visited):
+        visited[v] = True 
+        print(self.vertex_data[v] , end = " ")
+
+        for i in range(self.size):
+            if self.matrix[v][i] == 1 and not visited[i]:
+                self.dfs_util(i,visited)
+    def dfs(self,startVertex):
+        visited = [False] * self.size
+        startVertex = self.vertex_data.index(startVertex)
+        self.dfs_util(startVertex,visited)
+    def bfs(self, startVertexData):
+        queue = [self.vertex_data.index(startVertexData)]
+        visited = [False] * self.size
+        visited[queue[0]] = True
+
+        while queue:
+            current_vertex = queue.pop(0)
+            print(self.vertex_data[current_vertex], end=' ')
+            for i in range(self.size):
+                if self.matrix[current_vertex][i] is not None and not visited[i]:  # Edge exists
+                    queue.append(i)
+                    visited[i] = True
     def display(self):
         print("Adjacency Matrix")
         for row in self.matrix:
@@ -21,21 +41,3 @@ class Graph:
         print("\nVertex Data")
         for vertex , data in enumerate(self.vertex_data):
             print(f"Vertex {vertex} : {data}")
-    def printGraph(self):
-        print("Adjacency Matrix")
-        for row in self.matrix1:
-                print(" ".join(map(lambda x : str(x) if x is not None else "0" , row)))
-        print("\nVertex Data")
-        for vertex , data in enumerate(self.vertex_data):
-            print(f"Vertex {vertex} : {data}")
-if __name__ == '__main__':
-    graph = Graph(4)
-    graph.addVertex(0,"A")
-    graph.addVertex(1,"B")
-    graph.addVertex(2,"C")
-    graph.addVertex(3,"D")
-    graph.addEgde(0,1)
-    graph.addEgde(0,2)
-    graph.addEgde(1,2)
-    graph.addEgde(2,3)
-    graph.display()
