@@ -69,35 +69,6 @@ public class Graphs {
 		}
 	}
 
-	public void dijkstra(int startVertex) {
-		int[] distance = new int[size];
-		boolean[] visited = new boolean[size];
-		Arrays.fill(distance, Integer.MAX_VALUE);
-		distance[startVertex] = 0;
-		for (int i = 0; i < size; i++) {
-			int u = -1;
-			for (int j = 0; j < size; j++) {
-				if (!visited[j] && (u == -1 || distance[j] < distance[i]))
-					u = j;
-			}
-			if (distance[u] == Integer.MAX_VALUE)
-				break;
-			visited[u] = true;
-			for (int v = 0; v < size; v++) {
-				if (matrix[u][v] != 0 && !visited[v]) {
-					int newDist = distance[u] + matrix[u][v];
-					if (newDist < distance[v])
-						distance[v] = newDist;
-				}
-			}
-		}
-		System.out.println("Khoảng cách từ đỉnh " + vertex_data[startVertex] + "đến các đỉnh khác ");
-		for (int i = 0; i < size; i++) {
-			System.out.println("Đỉnh " + vertex_data[i] + ": "
-					+ (distance[i] == Integer.MAX_VALUE ? "Không thể tiếp cận" : distance[i]));
-		}
-	}
-
 	public void display() {
 		System.out.println("Vertex Data :");
 		for (int vertex = 0; vertex < size; vertex++) {
