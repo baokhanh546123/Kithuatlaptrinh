@@ -1,7 +1,7 @@
 class Graph_Weight:
     def __init__(self, size):
         self.size = size
-        self.matrix = [[None] * size for _ in range(size)]  # Adjacency matrix
+        self.matrix = [[None] * size for _ in range(size)]  
         self.vertex_data = [" "] * size  # List to store vertex data
     
     def addEdge(self, i, j, weight):
@@ -17,7 +17,7 @@ class Graph_Weight:
         print(self.vertex_data[v], end=" ")
 
         for i in range(self.size):
-            if self.matrix[v][i] is not None and not visited[i]:  # Edge exists
+            if self.matrix[v][i] is not None and not visited[i]:  
                 self.dfs_util(i, visited)
     
     def dfs(self, startVertexData):
@@ -34,7 +34,7 @@ class Graph_Weight:
             current_vertex = queue.pop(0)
             print(self.vertex_data[current_vertex], end=' ')
             for i in range(self.size):
-                if self.matrix[current_vertex][i] is not None and not visited[i]:  # Edge exists
+                if self.matrix[current_vertex][i] is not None and not visited[i]:  
                     queue.append(i)
                     visited[i] = True
     
@@ -105,7 +105,7 @@ class Graph_Weight:
     def printGraph(self):
         print("Adjacency Matrix:")
         for row in self.matrix:
-            print(" ".join(map(lambda x: str(x) if x is not None else "0", row)))  # Print weight or 0 for no edge
+            print(" ".join(map(lambda x: str(x) if x is not None else "0", row)))  
         print("\nVertex Data:")
         for vertex, data in enumerate(self.vertex_data):
             print(f"Vertex {vertex}: {data}")
